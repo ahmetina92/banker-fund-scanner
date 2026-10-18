@@ -50,25 +50,8 @@ def calc_fundtrend(df):
     b = xsa(a, 3, 1)
     return float(((3*a - 2*b - 50)*1.032 + 50)[-1])
 
-def to_weekly(df):
-    """Daily OHLC -> weekly OHLC, including the current incomplete week.
-
-    Weeks end Friday. The current week's latest available daily bar is included.
-    """
-    if df is None or df.empty:
-        return pd.DataFrame(columns=['Open', 'High', 'Low', 'Close'])
-    daily = df[['Open', 'High', 'Low', 'Close']].copy()
-    index = pd.DatetimeIndex(daily.index)
-    if index.tz is not None:
-        index = index.tz_localize(None)
-    daily.index = index
-    return daily.resample('W-FRI').agg({
-        'Open': 'first', 'High': 'max', 'Low': 'min', 'Close': 'last'
-    }).dropna()
-
-
-def download_batch(tickers, period='3y'):
-    data = yf.download(tickers=tickers, period=period, interval='1d', auto_adjust=False,
+def download_batch(tickers):
+    data = yf.download(tickers=tickers, period='9mo', interval='1d', auto_adjust=False,
                        progress=False, threads=False, group_by='ticker', timeout=25)
     result = {}
     for ticker in tickers:
