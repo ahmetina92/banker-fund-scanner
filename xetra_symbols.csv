@@ -1,0 +1,6 @@
+symbol
+# XETRA kapsamı otomatik doldurulmaz. Buraya Yahoo Finance'de .DE ile biten XETRA sembollerini ekleyin.
+# Ornek (bu satirlari yorumdan cikarip ekleyebilirsiniz):
+# SAP.DE
+# SIE.DE
+# ALV.DE
